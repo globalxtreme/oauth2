@@ -20,13 +20,6 @@
     "symfony/http-foundation": "^v5.0|v6.0|v6.1",
     "vlucas/phpdotenv": "^4.0|5.4.x-dev"
   },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "GlobalXtreme\\OAuth2\\GXOAuthServiceProvider"
-      ]
-    }
-  },
   "config": {
     "sort-packages": true
   },
