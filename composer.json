@@ -15,7 +15,7 @@
   },
   "require": {
     "php": "7.*|8.*",
-    "guzzlehttp/guzzle": "7.5.x-dev",
+    "guzzlehttp/guzzle": "^5.0|^6.0|^7.0|^7.5",
     "illuminate/support": "^8.83|^9.0",
     "symfony/http-foundation": "^v5.0|v6.0|v6.1",
     "vlucas/phpdotenv": "^4.0|5.4.x-dev"
