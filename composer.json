@@ -1,0 +1,34 @@
+{
+  "name": "globalxtreme/oauth2",
+  "description": "GlobalXtreme oauth for employee authentication",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yuswa",
+      "email": "yuswa98@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "GlobalXtreme\\OAuth2\\": "src/"
+    }
+  },
+  "require": {
+    "php": "7.*|8.*",
+    "guzzlehttp/guzzle": "7.5.x-dev",
+    "illuminate/support": "^8.83|^9.0",
+    "symfony/http-foundation": "^v5.0|v6.0|v6.1",
+    "vlucas/phpdotenv": "^4.0|5.4.x-dev"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "GlobalXtreme\\OAuth2\\GXOAuthServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev"
+}
