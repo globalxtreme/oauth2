@@ -29,6 +29,14 @@ trait GXEmployeeManager
     /**
      * @return mixed|null
      */
+    public function getEmployeeNo()
+    {
+        return isset($this->attribute['employeeNo']) ? $this->attribute['employeeNo'] : null;
+    }
+
+    /**
+     * @return mixed|null
+     */
     public function getFullName()
     {
         return isset($this->attribute['fullName']) ? $this->attribute['fullName'] : null;
@@ -121,6 +129,7 @@ trait GXEmployeeManager
     {
         return [
             'id' => $this->getID(),
+            'employeeNo' => $this->getEmployeeNo(),
             'fullName' => $this->getFullName(),
             'givenName' => $this->getGivenName(),
             'surname' => $this->getSurname(),
