@@ -2,21 +2,39 @@
 
 namespace GlobalXtreme\OAuth2\Support;
 
-trait GXEmployeeManager
+use GlobalXtreme\OAuth2\Contracts\GXEmployee as GXEmployeeContract;
+
+class GXEmployee implements GXEmployeeContract
 {
+    /**
+     * @var string
+     */
+    protected $token;
+
     /**
      * @var array
      */
     protected $attribute;
 
+
     /**
+     * @param $token
      * @param $attribute
      */
-    public function __construct($attribute)
+    public function __construct($token, $attribute)
     {
+        $this->token = $token;
         $this->attribute = is_array($attribute) ? $attribute : func_get_args();
     }
 
+
+    /**
+     * @return string|null
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
 
     /**
      * @return string|null
@@ -75,7 +93,7 @@ trait GXEmployeeManager
     }
 
     /**
-     * @return \GlobalXtreme\OAuth2\Contracts\GXIDName|array
+     * @return GXIDName|array
      */
     public function getCompanyOffice()
     {
@@ -83,7 +101,7 @@ trait GXEmployeeManager
     }
 
     /**
-     * @return \GlobalXtreme\OAuth2\Contracts\GXIDName|array
+     * @return GXIDName|array
      */
     public function getDepartment()
     {
@@ -91,7 +109,7 @@ trait GXEmployeeManager
     }
 
     /**
-     * @return \GlobalXtreme\OAuth2\Contracts\GXIDName|array
+     * @return GXIDName|array
      */
     public function getDivision()
     {
@@ -99,7 +117,7 @@ trait GXEmployeeManager
     }
 
     /**
-     * @return \GlobalXtreme\OAuth2\Contracts\GXIDName|array
+     * @return GXIDName|array
      */
     public function getJobPosition()
     {
@@ -107,7 +125,7 @@ trait GXEmployeeManager
     }
 
     /**
-     * @return \GlobalXtreme\OAuth2\Contracts\GXIDName|array
+     * @return GXIDName|array
      */
     public function getSection()
     {
@@ -115,7 +133,7 @@ trait GXEmployeeManager
     }
 
     /**
-     * @return \GlobalXtreme\OAuth2\Contracts\GXIDName|array
+     * @return GXIDName|array
      */
     public function getJobLevel()
     {
@@ -135,12 +153,12 @@ trait GXEmployeeManager
             'surname' => $this->getSurname(),
             'email' => $this->getEmail(),
             'gender' => $this->getGender(),
-            'companyOffice' => optional($this->getCompanyOffice())->toArray(),
-            'department' => optional($this->getDepartment())->toArray(),
-            'division' => optional($this->getDivision())->toArray(),
-            'jobPosition' => optional($this->getJobPosition())->toArray(),
-            'section' => optional($this->getSection())->toArray(),
-            'jobLevel' => optional($this->getJobLevel())->toArray(),
+            'companyOffice' => ($companyOffice = $this->getCompanyOffice()) ? $companyOffice->toArray() : null,
+            'department' => ($department = $this->getDepartment()) ? $department->toArray() : null,
+            'division' => ($division = $this->getDivision()) ? $division->toArray() : null,
+            'jobPosition' => ($jobPosition = $this->getJobPosition()) ? $jobPosition->toArray() : null,
+            'section' => ($section = $this->getSection()) ? $section->toArray() : null,
+            'jobLevel' => ($jobLevel = $this->getJobLevel()) ? $jobLevel->toArray() : null,
         ];
     }
 
