@@ -5,11 +5,25 @@ namespace GlobalXtreme\OAuth2\Contracts;
 interface GXEmployee
 {
     /**
+     * The function for get access token
+     *
+     * @return string
+     */
+    public function getToken();
+
+    /**
      * The function for get Employee ID
      *
      * @return string
      */
     public function getID();
+
+    /**
+     * The function for get Employee Number
+     *
+     * @return string
+     */
+    public function getEmployeeNo();
 
     /**
      * The function for get Employee Full name
@@ -84,7 +98,7 @@ interface GXEmployee
     /**
      * The function for get Employee Job level
      *
-     * @return GXIDName
+     * @return GXIDName|array
      */
     public function getJobLevel();
 

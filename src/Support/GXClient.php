@@ -4,6 +4,8 @@ namespace GlobalXtreme\OAuth2\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class GXClient
 {
@@ -42,9 +44,19 @@ class GXClient
     /**
      * @return string
      */
-    public function getAuthUrl()
+    public function getAuthorizationUrl()
     {
-        return "$this->baseUrl/oauth2/chooseEmployee?" . $this->setAuthFields();
+        return "$this->baseUrl/oauth2/authorization?" . $this->setAuthorizationFields();
+    }
+
+    public function getAccessToken()
+    {
+        $response = $this->getHttpClient()->post("$this->baseUrl/oauth2/token", [
+            RequestOptions::HEADERS => $this->getHeaders(),
+            RequestOptions::FORM_PARAMS => $this->getTokenFields(),
+        ]);
+
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -53,21 +65,16 @@ class GXClient
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getEmployeeByToken()
+    public function getEmployee($token)
     {
         $response = $this->getHttpClient()->get("$this->baseUrl/oauth2/user", [
             RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
-                'Authorization' => 'Bearer ' . (isset($_GET['token']) ? $_GET['token'] : ''),
+                'Authorization' => 'Bearer ' . $token,
             ]
         ]);
 
-        $response = json_decode($response->getBody(), true);
-        if (!isset($response['results'])) {
-            return [];
-        }
-
-        return $response['results'] ?: [];
+        return json_decode($response->getBody(), true);
     }
 
 
@@ -82,12 +89,30 @@ class GXClient
         return $this->httpClient;
     }
 
-    private function setAuthFields()
+    private function setAuthorizationFields()
     {
+        $_SESSION['state'] = $state = Str::random(40);
+
         return http_build_query([
-            'clientId' => $this->clientId,
-            'clientSecret' => $this->clientSecret
+            'state' => $state,
+            'client_id' => $this->clientId
         ]);
+    }
+
+    private function getHeaders()
+    {
+        return ['Accept' => 'application/json'];
+    }
+
+    private function getTokenFields()
+    {
+        return [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+            'code' => $_GET['code'],
+            'redirect_uri' => "",
+        ];
     }
 
 }

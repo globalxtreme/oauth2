@@ -2,23 +2,16 @@
 
 namespace GlobalXtreme\OAuth2\Support;
 
-use GlobalXtreme\OAuth2\GXEmployee;
+use GlobalXtreme\OAuth2\Exception\InvalidStateException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 
 trait GXOAutManager
 {
     /**
      * @var GXClient
      */
-    protected $employeeClient;
-
-
-    /**
-     * Set default client id and secret
-     */
-    public function __construct()
-    {
-        $this->employeeClient = new GXClient();
-    }
+    protected $GXClient;
 
 
     /**
@@ -26,7 +19,9 @@ trait GXOAutManager
      */
     public static function redirect()
     {
-        header("Location: " . (new self)->employeeClient->getAuthUrl());
+        session_start();
+
+        header("Location: " . self::setGXClient()->getAuthorizationUrl());
         exit();
     }
 
@@ -36,9 +31,39 @@ trait GXOAutManager
      */
     public static function employee()
     {
-        $employee = (new self)->employeeClient->getEmployeeByToken();
+        session_start();
 
-        return new GXEmployee(isset($employee['employee']) ? $employee['employee'] : null);
+        if (self::hasInvalidState()) {
+            throw new InvalidStateException();
+        }
+
+        $response = self::setGXClient()->getAccessToken();
+
+        $employee = self::setGXClient()->getEmployee(
+            $token = Arr::get($response, 'access_token')
+        );
+
+        session_destroy();
+        return new GXEmployee($token, $employee);
+    }
+
+
+    /** --- SUB FUNCTIONS --- */
+
+    private static function setGXClient()
+    {
+        return new GXClient();
+    }
+
+    private static function hasInvalidState()
+    {
+        if (!isset($_GET['state'])) {
+            return true;
+        }
+
+        $state = isset($_SESSION['state']) ? $_SESSION['state'] : null;
+
+        return empty($state) || $_GET['state'] !== $state;
     }
 
 }

@@ -3,6 +3,7 @@
 namespace GlobalXtreme\OAuth2;
 
 use GlobalXtreme\OAuth2\Contracts\GXOAuth as GXOAuthContract;
+use GlobalXtreme\OAuth2\Support\GXEmployee;
 use GlobalXtreme\OAuth2\Support\GXOAutManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
