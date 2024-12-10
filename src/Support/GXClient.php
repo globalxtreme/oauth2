@@ -12,7 +12,7 @@ class GXClient
     /**
      * @var string
      */
-    public $baseUrl = 'https://employee.dps.globalxtreme.net';
+    public $baseUrl = 'https://employee.globalxtreme-technologies.net';
 
     /**
      * @var string
