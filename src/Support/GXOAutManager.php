@@ -26,6 +26,24 @@ trait GXOAutManager
     }
 
     /**
+     * @return GXAccessToken
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public static function accessToken()
+    {
+        session_start();
+
+        if (self::hasInvalidState()) {
+            throw new InvalidStateException();
+        }
+
+        $accessToken = self::setGXClient()->getAccessToken();
+
+        session_destroy();
+        return new GXAccessToken($accessToken);
+    }
+
+    /**
      * @return GXEmployee
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -44,6 +62,18 @@ trait GXOAutManager
         );
 
         session_destroy();
+        return new GXEmployee($token, $employee);
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return GXEmployee
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public static function employeeFromToken(string $token)
+    {
+        $employee = self::setGXClient()->getEmployee($token);
         return new GXEmployee($token, $employee);
     }
 
