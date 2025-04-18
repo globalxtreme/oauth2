@@ -14,7 +14,22 @@ interface GXOAuth
     /**
      * Get the GXUser instance for the authenticated employee.
      *
+     * @return \GlobalXtreme\OAuth2\Contracts\GXAccessToken
+     */
+    public static function accessToken();
+
+    /**
+     * Get the GXUser instance for the authenticated employee.
+     *
      * @return \GlobalXtreme\OAuth2\Contracts\GXEmployee
      */
     public static function employee();
+
+    /**
+     * Get the GXUser instance for the authenticated employee.
+     *
+     * @return \GlobalXtreme\OAuth2\Contracts\GXEmployee
+     */
+    public static function employeeFromToken(string $token);
+
 }
