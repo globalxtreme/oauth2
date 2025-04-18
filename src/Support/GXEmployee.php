@@ -41,7 +41,7 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getID()
     {
-        return isset($this->attribute['id']) ? $this->attribute['id'] : null;
+        return !empty($this->attribute['id']) ? (string)$this->attribute['id'] : null;
     }
 
     /**
@@ -49,7 +49,7 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getEmployeeNo()
     {
-        return isset($this->attribute['employeeNo']) ? $this->attribute['employeeNo'] : null;
+        return !empty($this->attribute['employeeNo']) ? (string)$this->attribute['employeeNo'] : null;
     }
 
     /**
@@ -57,7 +57,7 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getFullName()
     {
-        return isset($this->attribute['fullName']) ? $this->attribute['fullName'] : null;
+        return !empty($this->attribute['fullName']) ? (string)$this->attribute['fullName'] : null;
     }
 
     /**
@@ -65,7 +65,7 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getGivenName()
     {
-        return isset($this->attribute['givenName']) ? $this->attribute['givenName'] : null;
+        return !empty($this->attribute['givenName']) ? (string)$this->attribute['givenName'] : null;
     }
 
     /**
@@ -73,7 +73,7 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getSurname()
     {
-        return isset($this->attribute['surname']) ? $this->attribute['surname'] : null;
+        return !empty($this->attribute['surname']) ? (string)$this->attribute['surname'] : null;
     }
 
     /**
@@ -81,7 +81,7 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getEmail()
     {
-        return isset($this->attribute['email']) ? $this->attribute['email'] : null;
+        return !empty($this->attribute['email']) ? (string)$this->attribute['email'] : null;
     }
 
     /**
@@ -89,55 +89,103 @@ class GXEmployee implements GXEmployeeContract
      */
     public function getGender()
     {
-        return isset($this->attribute['email']) ? $this->attribute['email'] : null;
+        return !empty($this->attribute['gender']) ? (string)$this->attribute['gender'] : null;
     }
 
     /**
-     * @return GXIDName|array
+     * @return int|null
      */
-    public function getCompanyOffice()
+    public function getCompanyOfficeId()
     {
-        return isset($this->attribute['companyOffice']) ? new GXIDName($this->attribute['companyOffice']) : [];
+        return !empty($this->attribute['companyOfficeId']) ? (int)$this->attribute['companyOfficeId'] : null;
     }
 
     /**
-     * @return GXIDName|array
+     * @return string|null
      */
-    public function getDepartment()
+    public function getCompanyOfficeName()
     {
-        return isset($this->attribute['department']) ? new GXIDName($this->attribute['department']) : [];
+        return !empty($this->attribute['companyOfficeName']) ? (string)$this->attribute['companyOfficeName'] : null;
     }
 
     /**
-     * @return GXIDName|array
+     * @return int|null
      */
-    public function getDivision()
+    public function getDepartmentId()
     {
-        return isset($this->attribute['division']) ? new GXIDName($this->attribute['division']) : [];
+        return !empty($this->attribute['departmentId']) ? (int)$this->attribute['departmentId'] : null;
     }
 
     /**
-     * @return GXIDName|array
+     * @return string|null
      */
-    public function getJobPosition()
+    public function getDepartmentName()
     {
-        return isset($this->attribute['jobPosition']) ? new GXIDName($this->attribute['jobPosition']) : [];
+        return !empty($this->attribute['departmentName']) ? (string)$this->attribute['departmentName'] : null;
     }
 
     /**
-     * @return GXIDName|array
+     * @return int|null
      */
-    public function getSection()
+    public function getDivisionId()
     {
-        return isset($this->attribute['section']) ? new GXIDName($this->attribute['section']) : [];
+        return !empty($this->attribute['divisionId']) ? (int)$this->attribute['divisionId'] : null;
     }
 
     /**
-     * @return GXIDName|array
+     * @return string|null
      */
-    public function getJobLevel()
+    public function getDivisionName()
     {
-        return isset($this->attribute['jobLevel']) ? new GXIDName($this->attribute['jobLevel']) : [];
+        return !empty($this->attribute['divisionName']) ? (string)$this->attribute['divisionName'] : null;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getJobPositionId()
+    {
+        return !empty($this->attribute['jobPositionId']) ? (int)$this->attribute['jobPositionId'] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getJobPositionName()
+    {
+        return !empty($this->attribute['jobPositionName']) ? (string)$this->attribute['jobPositionName'] : null;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSectionId()
+    {
+        return !empty($this->attribute['sectionId']) ? (int)$this->attribute['sectionId'] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSectionName()
+    {
+        return !empty($this->attribute['sectionName']) ? (string)$this->attribute['sectionName'] : null;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getJobLevelId()
+    {
+        return !empty($this->attribute['jobLevelId']) ? (int)$this->attribute['jobLevelId'] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getJobLevelName()
+    {
+        return !empty($this->attribute['jobLevelName']) ? (string)$this->attribute['jobLevelName'] : null;
     }
 
     /**
@@ -153,12 +201,18 @@ class GXEmployee implements GXEmployeeContract
             'surname' => $this->getSurname(),
             'email' => $this->getEmail(),
             'gender' => $this->getGender(),
-            'companyOffice' => ($companyOffice = $this->getCompanyOffice()) ? $companyOffice->toArray() : null,
-            'department' => ($department = $this->getDepartment()) ? $department->toArray() : null,
-            'division' => ($division = $this->getDivision()) ? $division->toArray() : null,
-            'jobPosition' => ($jobPosition = $this->getJobPosition()) ? $jobPosition->toArray() : null,
-            'section' => ($section = $this->getSection()) ? $section->toArray() : null,
-            'jobLevel' => ($jobLevel = $this->getJobLevel()) ? $jobLevel->toArray() : null,
+            'companyOfficeId' => $this->getCompanyOfficeId(),
+            'companyOfficeName' => $this->getCompanyOfficeName(),
+            'departmentId' => $this->getDepartmentId(),
+            'departmentName' => $this->getDepartmentName(),
+            'divisionId' => $this->getDivisionId(),
+            'divisionName' => $this->getDivisionName(),
+            'sectionId' => $this->getSectionId(),
+            'sectionName' => $this->getSectionName(),
+            'JobPositionId' => $this->getJobPositionId(),
+            'JobPositionName' => $this->getJobPositionName(),
+            'JobLevelId' => $this->getJobLevelId(),
+            'JobLevelName' => $this->getJobLevelName(),
         ];
     }
 

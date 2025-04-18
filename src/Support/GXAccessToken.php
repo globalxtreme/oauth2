@@ -2,7 +2,9 @@
 
 namespace GlobalXtreme\OAuth2\Support;
 
-class GXAccessToken
+use GlobalXtreme\OAuth2\Contracts\GXAccessToken as GXAccessTokenContract;
+
+class GXAccessToken implements GXAccessTokenContract
 {
     /**
      * @var array
@@ -24,7 +26,7 @@ class GXAccessToken
      */
     public function getAccessToken()
     {
-        return isset($this->attribute['access_token']) ? $this->attribute['access_token'] : null;
+        return !empty($this->attribute['access_token']) ? (string)$this->attribute['access_token'] : null;
     }
 
     /**
@@ -32,7 +34,7 @@ class GXAccessToken
      */
     public function getTokenType()
     {
-        return isset($this->attribute['token_type']) ? $this->attribute['token_type'] : null;
+        return !empty($this->attribute['token_type']) ? (string)$this->attribute['token_type'] : null;
     }
 
     /**
@@ -40,7 +42,7 @@ class GXAccessToken
      */
     public function getExpiresIn()
     {
-        return isset($this->attribute['expires_in']) ? $this->attribute['expires_in'] : null;
+        return !empty($this->attribute['expires_in']) ? (int)$this->attribute['expires_in'] : null;
     }
 
     /**
@@ -48,7 +50,7 @@ class GXAccessToken
      */
     public function getScope()
     {
-        return isset($this->attribute['scope']) ? $this->attribute['scope'] : null;
+        return !empty($this->attribute['scope']) ? (string)$this->attribute['scope'] : null;
     }
 
     /**

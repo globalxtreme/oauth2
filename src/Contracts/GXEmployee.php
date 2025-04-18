@@ -7,99 +7,141 @@ interface GXEmployee
     /**
      * The function for get access token
      *
-     * @return string
+     * @return string|null
      */
     public function getToken();
 
     /**
      * The function for get Employee ID
      *
-     * @return string
+     * @return string|null
      */
     public function getID();
 
     /**
      * The function for get Employee Number
      *
-     * @return string
+     * @return string|null
      */
     public function getEmployeeNo();
 
     /**
      * The function for get Employee Full name
      *
-     * @return string
+     * @return string|null
      */
     public function getFullName();
 
     /**
      * The function for get Employee Given name
      *
-     * @return string
+     * @return string|null
      */
     public function getGivenName();
 
     /**
      * The function for get Employee Surname
      *
-     * @return string
+     * @return string|null
      */
     public function getSurname();
 
     /**
      * The function for get Employee Email
      *
-     * @return string
+     * @return string|null
      */
     public function getEmail();
 
     /**
      * The function for get Employee Gender
      *
-     * @return string
+     * @return string|null
      */
     public function getGender();
 
     /**
      * The function for get Employee Company office
      *
-     * @return GXIDName
+     * @return int|null
      */
-    public function getCompanyOffice();
+    public function getCompanyOfficeId();
+
+    /**
+     * The function for get Employee Company office
+     *
+     * @return string|null
+     */
+    public function getCompanyOfficeName();
 
     /**
      * The function for get Employee Department
      *
-     * @return GXIDName
+     * @return int|null
      */
-    public function getDepartment();
+    public function getDepartmentId();
+
+    /**
+     * The function for get Employee Department
+     *
+     * @return string|null
+     */
+    public function getDepartmentName();
 
     /**
      * The function for get Employee Division
      *
-     * @return GXIDName
+     * @return int|null
      */
-    public function getDivision();
+    public function getDivisionId();
 
     /**
-     * The function for get Employee Job Position
+     * The function for get Employee Division
      *
-     * @return GXIDName
+     * @return string|null
      */
-    public function getJobPosition();
+    public function getDivisionName();
 
     /**
      * The function for get Employee Section
      *
-     * @return GXIDName
+     * @return int|null
      */
-    public function getSection();
+    public function getSectionId();
+
+    /**
+     * The function for get Employee Section
+     *
+     * @return string|null
+     */
+    public function getSectionName();
+
+    /**
+     * The function for get Employee Job Position
+     *
+     * @return int|null
+     */
+    public function getJobPositionId();
+
+    /**
+     * The function for get Employee Job Position
+     *
+     * @return string|null
+     */
+    public function getJobPositionName();
 
     /**
      * The function for get Employee Job level
      *
-     * @return GXIDName|array
+     * @return int|null
      */
-    public function getJobLevel();
+    public function getJobLevelId();
+
+    /**
+     * The function for get Employee Job level
+     *
+     * @return string|null
+     */
+    public function getJobLevelName();
 
 }
